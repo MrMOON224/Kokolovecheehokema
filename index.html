@@ -37,6 +37,10 @@
             to { transform: translateY(-10px); }
         }
 
+        .gif-container {
+            margin-bottom: 20px;
+        }
+
         .buttons {
             display: flex;
             justify-content: center;
@@ -138,7 +142,7 @@
 </head>
 <body>
     <script>
-        let password = prompt("Enter the password:");
+        let password = prompt("pass htal kway chi ma hint:annni day " );
         if (password === "10") {
             document.body.style.display = "flex";
         } else {
@@ -147,19 +151,27 @@
     </script>
     
     <h1>Will you be my Valentine?</h1>
+
+    <!-- GIF Added Below the Header -->
+    <div class="gif-container">
+        <img src="https://tgs.sgp1.digitaloceanspaces.com/animated11_1406087429_by_Lovishmanager_bot/smiling_face_with_three_hearts_5bd50099.gif" 
+             alt="Smiling Face with Hearts" width="150">
+    </div>
+
     <div class="buttons">
         <button id="yesButton">Yes</button>
         <button id="noButton">No</button>
     </div>
     <p id="funText"></p>
     <div id="successMessage" class="success-message">
-        Yay! You said Yes! 🎉 Thank you for being my Valentine! 💖
+        ရေးးးးး ချစ်တာချစ်တုံးကြီးကို
     </div>
     <div id="countdown" class="countdown"></div>
     <table id="photoTable" class="photo-table">
+        <tr></tr>
         <tr>
             <td>
-                <a href="moment.html" class="moment-button">click here💕</a>
+                <a href="moment.html" class="moment-button">click here ❤️</a>
             </td>
         </tr>
     </table>
@@ -169,9 +181,9 @@
         const funText = document.getElementById('funText');
         
         const funWords = [
-            "Yes! 💖", "Of course! 😊", "Absolutely! 🥰", "100%! 💕", 
-            "Sure! 😘", "Why not? 😍", "Yes, yes, yes! 💌", "Definitely! 🌟", 
-            "Always! 💑", "You bet! 💞", "Forever! 💒"
+            "Yes! 💖", "သဲသဲနော်🙄", "ခွေးချီးမ🙄 ", "လက်ခံလို့!", 
+            "thel thel lo 😡", "ချစ်ဘူလာ🙄", " ကျင့်ပုတ်နဲ့လို😭", "ချစ်တုံးလို့! 😡", 
+            "ချီးထုတ်ပဲ! 🙄", "ဘုခံချငိနေတာ! 🙄", "ခွေးမ "
         ];
 
         noButton.addEventListener('click', function() {
@@ -196,7 +208,7 @@
                 const now = new Date().getTime();
                 const distance = now - anniversaryDate;
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                document.getElementById('countdown').innerHTML = `Been together for: ${days} days 💖`;
+                document.getElementById('countdown').innerHTML = `ကိုကိုနဲ့သဲသဲတူတူရှိတာ: ${days} days 💖`;
             }, 1000);
         }
     </script>
