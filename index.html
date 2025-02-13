@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Gift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffcc00;
+            font-family: 'Poppins', sans-serif;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            flex-direction: column;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #yesButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #yesButton:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        #noButton {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #noButton:hover {
+            background-color: #e53935;
+            transform: scale(1.1);
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 2.5rem;
+            color: #4CAF50;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .countdown {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #ffcc00;
+        }
+
+        .photo-table {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .photo-table img {
+            width: 100%;
+            border-radius: 10px;
+            border: 5px solid #ff69b4;
+        }
+
+        .photo-table td {
+            text-align: center;
+            padding: 10px;
+        }
+
+        #funText {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #ff69b4;
+        }
+
+        .moment-button {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+            text-decoration: none;
+        }
+
+        .moment-button:hover {
+            background-color: #ff4da6;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let password = prompt("Enter the password:");
+        if (password === "10") {
+            document.body.style.display = "flex";
+        } else {
+            alert("Incorrect password! Reload the page to try again.");
+        }
+    </script>
+    
+    <h1>Will you be my Valentine?</h1>
+    <div class="buttons">
+        <button id="yesButton">Yes</button>
+        <button id="noButton">No</button>
+    </div>
+    <p id="funText"></p>
+    <div id="successMessage" class="success-message">
+        Yay! You said Yes! 🎉 Thank you for being my Valentine! 💖
+    </div>
+    <div id="countdown" class="countdown"></div>
+    <table id="photoTable" class="photo-table">
+        <tr>
+            <td>
+                <img src="https://via.placeholder.com/400x300" alt="Our Picture">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="moment.html" class="moment-button">Our Special Moment 💕</a>
+            </td>
+        </tr>
+    </table>
+    <script>
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const funText = document.getElementById('funText');
+        
+        const funWords = [
+            "Yes! 💖", "Of course! 😊", "Absolutely! 🥰", "100%! 💕", 
+            "Sure! 😘", "Why not? 😍", "Yes, yes, yes! 💌", "Definitely! 🌟", 
+            "Always! 💑", "You bet! 💞", "Forever! 💒"
+        ];
+
+        noButton.addEventListener('click', function() {
+            const randomWord = funWords[Math.floor(Math.random() * funWords.length)];
+            yesButton.textContent = randomWord;
+            yesButton.style.fontSize = (parseFloat(window.getComputedStyle(yesButton).fontSize) + 10) + 'px';
+            funText.textContent = "Keep clicking! 😜";
+        });
+
+        yesButton.addEventListener('click', function() {
+            document.querySelector('.buttons').style.display = 'none';
+            funText.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('countdown').style.display = 'block';
+            document.getElementById('photoTable').style.display = 'table';
+            startCountdown();
+        });
+
+        function startCountdown() {
+            const anniversaryDate = new Date("2024-02-10").getTime();
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = now - anniversaryDate;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById('countdown').innerHTML = `Been together for: ${days} days 💖`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
