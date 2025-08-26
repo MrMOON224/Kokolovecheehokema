@@ -74,7 +74,6 @@
             padding: 0.5rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
         /* Sprinkle Animation CSS */
         @keyframes sparkle {
             0% { transform: scale(0.5); opacity: 0; }
@@ -89,6 +88,51 @@
             pointer-events: none;
             z-index: 1000; /* Ensure sprinkles are on top */
             animation: sparkle 2s ease-in-out forwards;
+        }
+        /* New styles for the canvas puzzle */
+        #puzzle-canvas {
+            background-color: #FFEBEE;
+            border: 2px solid #F8BBD0;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            touch-action: none; /* Prevents default touch actions like scrolling */
+        }
+        /* New Quiz styles for a cuter look */
+        .quiz-option {
+            background-color: #fff;
+            border: 2px solid #FFB3D9; /* Cute pink border */
+            padding: 1.25rem;
+            border-radius: 1rem; /* More rounded corners */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* Soft shadow */
+            position: relative;
+            overflow: hidden;
+            text-align: left; /* Align text left */
+        }
+        .quiz-option:hover {
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12); /* Stronger shadow on hover */
+        }
+        .quiz-option.correct {
+            background-color: #E8FFEF; /* Light green for correct */
+            border-color: #4CAF50; /* Green border */
+        }
+        .quiz-option.incorrect {
+            background-color: #FFE8E8; /* Light red for incorrect */
+            border-color: #F44336; /* Red border */
+        }
+        .quiz-option .option-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #FFB3D9; /* Cute pink label background */
+            color: #6A1A51;
+            font-weight: bold;
+            margin-right: 1rem;
         }
     </style>
 </head>
@@ -111,36 +155,61 @@
                 ကိုကိုအချစ်ဆုံးအသည်းတုံးလေးတောင် ကိုကိုနဲ့စတွဲးတုန်းက ၁၄နှစ်ကလေးလေးကနေအခုဆို ၁၆နှစ်လူကြီးကြီးဖြစ်တော့မယ် သဲသဲကိုညိမလေးလ်ိုကေား ချစ်သူလိုကေားအများကြီးချစ်တယ် နောက်မွေးနေ့တေလဲအတူတူပဲနေသွားချင်တယ် ကိုကိုအသည်းတုံးလေး ကိုကိုရှေ့မာတင်ကလေးလေးကနေလူကြီးလေးဖြစ်တော့မယ်
             </p>
 
-            <button id="gift-button" class="cute-button text-lg">
-                Claim
-            </button>
-        </div>
-
-        <!-- Page 2: Password Input (initially hidden) -->
-        <div id="page2" class="cute-card hidden">
-            <h2 class="text-3xl font-bold text-[#6A1A51] mb-4">What's the Secret?</h2>
-            <p class="text-lg text-[#9F7AEA] mb-6">
-                သဲသဲအတွက်မွေးနေ့လက်ဆောင်
-            </p>
-            <!-- Flex container for the input and show/hide button -->
-            <div class="flex items-center space-x-2">
-                <input type="password" id="password-input" class="w-full input-field focus:outline-none focus:ring-2 focus:ring-[#F8BBD0]" placeholder="Enter password...">
-                <!-- Added a button to toggle password visibility -->
-                <button id="toggle-password" class="cute-button text-sm px-4 py-2 flex-shrink-0">
-                    Show
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button id="gift-button" class="cute-button text-lg">
+                    Start the Puzzle
+                </button>
+                <button id="quiz-button" class="cute-button text-lg bg-green-300 text-green-800 hidden">
+                    Take the Quiz
                 </button>
             </div>
+        </div>
+
+        <!-- Page 2: Visual Puzzle Input (initially hidden) -->
+        <div id="page2" class="cute-card hidden">
+            <h2 class="text-3xl font-bold text-[#6A1A51] mb-4">The Path to My Heart</h2>
+            <p class="text-lg text-[#9F7AEA] mb-6">
+                Connect the dots in order to find the secret path! The numbers form our anniversary date.
+            </p>
+            
+            <!-- The visual puzzle canvas -->
+            <canvas id="puzzle-canvas" width="300" height="300" class="mb-4 mx-auto"></canvas>
             
             <div id="message-box" class="message-box text-red-500 font-medium text-sm mt-2"></div>
             <div class="flex justify-between mt-6">
-                <button id="back-button" class="cute-button text-lg w-1/2 mr-2 bg-gray-400 hover:bg-gray-500">Back</button>
-                <button id="submit-button" class="cute-button text-lg w-1/2 ml-2">Unlock Gift</button>
+                <button id="back-button-puzzle" class="cute-button text-lg w-1/2 mr-2 bg-gray-400 hover:bg-gray-500">Back</button>
+                <button id="clear-button" class="cute-button text-lg w-1/2 ml-2">Clear Path</button>
+            </div>
+            <!-- New Unlock button, hidden until puzzle is solved -->
+            <button id="unlock-button-puzzle" class="cute-button text-lg mt-6 w-full hidden">
+                Unlock Quiz
+            </button>
+        </div>
+
+        <!-- Page 2 - New: Quiz Game -->
+        <div id="page2-quiz" class="cute-card hidden">
+            <h2 class="text-3xl font-bold text-[#6A1A51] mb-4">The Love Quiz</h2>
+            <p class="text-lg text-[#9F7AEA] mb-6">
+                Answer these questions about us to unlock your gift!
+            </p>
+            <div id="quiz-content" class="text-left">
+                <h3 id="quiz-question" class="text-2xl font-bold text-[#6A1A51] mb-4"></h3>
+                <div id="quiz-options" class="flex flex-col gap-4">
+                    <!-- Quiz options will be dynamically added here -->
+                </div>
+                <div id="quiz-feedback" class="message-box font-medium text-sm mt-4 text-center"></div>
+            </div>
+            <button id="quiz-next-button" class="cute-button text-lg mt-6 w-full hidden">
+                Next Question
+            </button>
+            <div class="flex justify-between mt-6">
+                <button id="back-button-quiz" class="cute-button text-lg w-1/2 mr-2 bg-gray-400 hover:bg-gray-500">Back</button>
             </div>
         </div>
 
         <!-- Page 3: Gift Message (initially hidden) -->
         <div id="page3" class="cute-card hidden">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-[#6A1A51] mb-4">ရေးးဟေ့</h2>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-[#6A1A51] mb-4">You got it!</h2>
             <br><br>
             <p class="text-lg text-[#9F7AEA] mb-6">
                 ID: 10.2.2024
@@ -160,80 +229,196 @@
     <script>
         // Get references to the HTML elements
         const page1 = document.getElementById('page1');
-        const page2 = document.getElementById('page2');
+        const page2Puzzle = document.getElementById('page2');
+        const page2Quiz = document.getElementById('page2-quiz');
         const page3 = document.getElementById('page3');
         const giftButton = document.getElementById('gift-button');
-        const submitButton = document.getElementById('submit-button');
-        const backButton = document.getElementById('back-button');
-        const passwordInput = document.getElementById('password-input');
+        const backButtonPuzzle = document.getElementById('back-button-puzzle');
+        const backButtonQuiz = document.getElementById('back-button-quiz');
+        const clearButton = document.getElementById('clear-button');
+        const unlockButtonPuzzle = document.getElementById('unlock-button-puzzle');
         const messageBox = document.getElementById('message-box');
-        const togglePasswordButton = document.getElementById('toggle-password');
         const backButtonFinal = document.getElementById('back-button-final');
 
-        // The secret password.
-        const SECRET_PASSWORD = "10.2.2024";
+        // New elements for the canvas puzzle
+        const canvas = document.getElementById('puzzle-canvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let drawnPath = []; // Stores the sequence of points drawn by the user
+
+        // The sequence of numbers to form the secret path (1 then 0)
+        const SECRET_SEQUENCE = [1, 0];
+
+        // Puzzle element positions and data
+        const puzzlePoints = [
+            { x: 50, y: 150, radius: 25, label: '1', number: 1 },
+            { x: 150, y: 50, radius: 25, label: '9', number: 9 },
+            { x: 250, y: 150, radius: 25, label: '0', number: 0 },
+            { x: 150, y: 250, radius: 25, label: '3', number: 3 },
+            { x: 100, y: 100, radius: 25, label: '7', number: 7 },
+            { x: 200, y: 200, radius: 25, label: '4', number: 4 }
+        ];
+        
+        // Function to draw the puzzle elements
+        function drawPuzzle() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the points
+            puzzlePoints.forEach(point => {
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, point.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = '#FFD1E5';
+                ctx.fill();
+                ctx.strokeStyle = '#F8BBD0';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.closePath();
+                
+                // Draw the label
+                ctx.fillStyle = '#6A1A51';
+                ctx.font = '24px "Roboto Slab"';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(point.label, point.x, point.y);
+            });
+        }
+
+        // Handle drawing on the canvas
+        function getMousePos(event) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const clientX = event.clientX || event.touches[0].clientX;
+            const clientY = event.clientY || event.touches[0].clientY;
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+
+        function handleStart(event) {
+            const pos = getMousePos(event);
+            const clickedPoint = puzzlePoints.find(point => {
+                const dist = Math.sqrt((pos.x - point.x)**2 + (pos.y - point.y)**2);
+                return dist < point.radius;
+            });
+
+            // Check if the first point clicked is the start of the secret path
+            if (clickedPoint && clickedPoint.number === SECRET_SEQUENCE[0]) {
+                isDrawing = true;
+                drawnPath = [clickedPoint.number];
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+                messageBox.textContent = ""; // Clear message on start
+                unlockButtonPuzzle.classList.add('hidden'); // Hide the unlock button
+            }
+        }
+
+        function handleMove(event) {
+            if (!isDrawing) return;
+            event.preventDefault(); // Prevents scrolling on touch devices
+            const pos = getMousePos(event);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#C084FC';
+            ctx.stroke();
+
+            // Check if the line passes through the next point in the sequence
+            const lastNumber = drawnPath[drawnPath.length - 1];
+            const nextExpectedNumber = SECRET_SEQUENCE[drawnPath.length];
+            
+            if (nextExpectedNumber !== undefined) {
+                const nextPoint = puzzlePoints.find(p => p.number === nextExpectedNumber);
+                const dist = Math.sqrt((pos.x - nextPoint.x)**2 + (pos.y - nextPoint.y)**2);
+                
+                if (dist < nextPoint.radius && drawnPath.length < SECRET_SEQUENCE.length) {
+                    drawnPath.push(nextPoint.number);
+                    // Draw a straight line to the next point to make it neat
+                    ctx.lineTo(nextPoint.x, nextPoint.y);
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(nextPoint.x, nextPoint.y);
+                }
+            }
+        }
+
+        function handleEnd(event) {
+            if (!isDrawing) return;
+            isDrawing = false;
+            
+            // Final check of the path
+            if (drawnPath.length === SECRET_SEQUENCE.length) {
+                if (JSON.stringify(drawnPath) === JSON.stringify(SECRET_SEQUENCE)) {
+                    messageBox.textContent = "You did it! Click the button below to unlock the quiz.";
+                    unlockButtonPuzzle.classList.remove('hidden'); // Show the unlock button
+                } else {
+                    messageBox.textContent = "Oops! That's not the correct path. Try again!";
+                    // Optional: Clear the canvas if the path is wrong
+                    clearPuzzle();
+                }
+            } else {
+                messageBox.textContent = "You didn't complete the path! Try again!";
+                clearPuzzle();
+            }
+        }
+        
+        // Function to clear the puzzle and reset state
+        function clearPuzzle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the drawing
+            drawPuzzle(); // Redraw the original puzzle
+            drawnPath = [];
+            unlockButtonPuzzle.classList.add('hidden'); // Hide the button
+            messageBox.textContent = ""; // Clear any messages
+        }
+
+        // Event listeners for drawing
+        canvas.addEventListener('mousedown', handleStart);
+        canvas.addEventListener('mousemove', handleMove);
+        canvas.addEventListener('mouseup', handleEnd);
+        canvas.addEventListener('mouseleave', handleEnd);
+
+        // Touch event listeners for mobile devices
+        canvas.addEventListener('touchstart', handleStart);
+        canvas.addEventListener('touchmove', handleMove);
+        canvas.addEventListener('touchend', handleEnd);
 
         // Event listener for the main gift button
         giftButton.addEventListener('click', () => {
-            // When clicked, hide the first page and show the second one (password page)
             page1.classList.add('hidden');
-            page2.classList.remove('hidden');
-            // Automatically focus on the input field for easy typing
-            passwordInput.focus();
+            page2Puzzle.classList.remove('hidden');
+            drawPuzzle(); // Draw the puzzle when the page is shown
         });
 
-        // Event listener for the password submit button
-        submitButton.addEventListener('click', () => {
-            // Get the value from the password input field and trim any extra spaces
-            const enteredPassword = passwordInput.value.trim();
-
-            // Check if the entered password matches the secret password
-            if (enteredPassword === SECRET_PASSWORD) {
-                // If it's correct, hide the password page and show the final gift page
-                page2.classList.add('hidden');
-                page3.classList.remove('hidden');
-            } else {
-                // If the password is wrong, display an error message
-                messageBox.textContent = "Oops! That's not the right password. Try again!";
-                // Clear the input field for a new attempt
-                passwordInput.value = "";
-            }
-        });
-
-        // Event listener for the back button on the password page
-        backButton.addEventListener('click', () => {
-            // Hide the current page and show the first page
-            page2.classList.add('hidden');
+        // Event listener for the back button
+        backButtonPuzzle.addEventListener('click', () => {
+            page2Puzzle.classList.add('hidden');
             page1.classList.remove('hidden');
-            // Clear any previous error messages
-            messageBox.textContent = "";
-            // Clear the password input field
-            passwordInput.value = "";
+            clearPuzzle(); // Reset puzzle on back navigation
         });
 
-        // Event listener for the new password toggle button
-        togglePasswordButton.addEventListener('click', () => {
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                togglePasswordButton.textContent = "Hide";
-            } else {
-                passwordInput.type = "password";
-                togglePasswordButton.textContent = "Show";
-            }
+        // Event listener for the back button on quiz page
+        backButtonQuiz.addEventListener('click', () => {
+            page2Quiz.classList.add('hidden');
+            page2Puzzle.classList.remove('hidden'); // Go back to the puzzle page
+        });
+
+        // Event listener for the clear path button
+        clearButton.addEventListener('click', clearPuzzle);
+
+        // Event listener for the new unlock button
+        unlockButtonPuzzle.addEventListener('click', () => {
+            page2Puzzle.classList.add('hidden');
+            page2Quiz.classList.remove('hidden');
+            startQuiz(); // Start the quiz when the page is shown
         });
 
         // Event listener for the new back button on the final page
         backButtonFinal.addEventListener('click', () => {
-            // Hide the final page and show the first page
             page3.classList.add('hidden');
             page1.classList.remove('hidden');
-        });
-
-        // Allow pressing 'Enter' to submit the password
-        passwordInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                submitButton.click();
-            }
+            clearPuzzle(); // Reset puzzle state for the next time
         });
 
         // Sprinkles animation logic
@@ -262,6 +447,121 @@
         for (let i = 0; i < numSprinkles; i++) {
             createSprinkle();
         }
+
+        // --- New Quiz Game Logic ---
+        const quizQuestions = [
+            {
+                question: "Where did we first meet?",
+                options: ["A small park near your house", "A coffee shop", "At the library", "My backyard"],
+                answer: "A small park near your house"
+            },
+            {
+                question: "What were you wearing the day we first met?",
+                options: ["Jeans and a simple t-shirt", "A dress and sandals", "Sweatpants and a hoodie", "A beautiful jacket"],
+                answer: "Jeans and a simple t-shirt"
+            },
+            {
+                question: "What did we do after we went to the shop?",
+                options: ["Sat in the park for hours, talking about everything", "Walked around the neighborhood", "Cooked a meal together", "Went to a movie"],
+                answer: "Sat in the park for hours, talking about everything"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let correctAnswersCount = 0;
+        const requiredCorrectAnswers = 3; // Number of correct answers to unlock the gift
+
+        const quizQuestionElement = document.getElementById('quiz-question');
+        const quizOptionsElement = document.getElementById('quiz-options');
+        const quizFeedbackElement = document.getElementById('quiz-feedback');
+        const quizNextButton = document.getElementById('quiz-next-button');
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            correctAnswersCount = 0;
+            quizNextButton.classList.add('hidden');
+            quizFeedbackElement.textContent = '';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionData = quizQuestions[currentQuestionIndex];
+            quizQuestionElement.textContent = questionData.question;
+            quizOptionsElement.innerHTML = '';
+            quizFeedbackElement.textContent = '';
+            quizNextButton.classList.add('hidden');
+
+            // Map option labels to letters
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            questionData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.classList.add('quiz-option', 'w-full'); // w-full class to make it responsive
+                // Use a data attribute to store the answer for easier checking
+                button.dataset.option = option;
+                button.innerHTML = `
+                    <span class="option-label">${optionLabels[index]}</span>
+                    <span>${option}</span>
+                `;
+                button.addEventListener('click', () => checkAnswer(button, option, questionData.answer));
+                quizOptionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(button, selectedAnswer, correctAnswer) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.disabled = true; // Disable all buttons after one is clicked
+                // Check if the option's data attribute matches the correct answer
+                if (opt.dataset.option === correctAnswer) { 
+                    opt.classList.add('correct');
+                } else {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            if (selectedAnswer === correctAnswer) {
+                quizFeedbackElement.textContent = "That's right! You're the best.";
+                quizFeedbackElement.classList.remove('text-red-500');
+                quizFeedbackElement.classList.add('text-green-500');
+                correctAnswersCount++;
+            } else {
+                quizFeedbackElement.textContent = "Oops, that's not it. The correct answer is highlighted.";
+                quizFeedbackElement.classList.remove('text-green-500');
+                quizFeedbackElement.classList.add('text-red-500');
+            }
+
+            // Show next button after a short delay
+            setTimeout(() => {
+                 quizNextButton.classList.remove('hidden');
+            }, 1000);
+        }
+
+        quizNextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                showQuestion();
+            } else {
+                // All questions answered, check if enough were correct
+                if (correctAnswersCount >= requiredCorrectAnswers) {
+                    quizFeedbackElement.textContent = `You got ${correctAnswersCount} out of ${quizQuestions.length} correct! You've unlocked your gift!`;
+                    quizFeedbackElement.classList.remove('text-red-500');
+                    quizFeedbackElement.classList.add('text-green-500');
+                    // Delay for dramatic effect before showing the gift
+                    setTimeout(() => {
+                        page2Quiz.classList.add('hidden');
+                        page3.classList.remove('hidden');
+                    }, 2000);
+                } else {
+                    quizFeedbackElement.textContent = `You got ${correctAnswersCount} out of ${quizQuestions.length} correct. Not quite enough. Try again!`;
+                    quizFeedbackElement.classList.remove('text-green-500');
+                    quizFeedbackElement.classList.add('text-red-500');
+                    setTimeout(() => {
+                        startQuiz(); // Restart the quiz
+                    }, 2000);
+                }
+            }
+        });
     </script>
 </body>
 </html>
