@@ -13,7 +13,6 @@
         body {
             font-family: 'Roboto Slab', serif; /* A clean, modern font for all text */
             background-color: #FCE7F3; /* A soft, light pink background */
-            /* Removed overflow: hidden to allow scrolling on mobile devices */
         }
         h1, h2 {
             font-family: 'Roboto Slab', serif; /* A clean, modern font for headings */
@@ -123,7 +122,15 @@
             <p class="text-lg text-[#9F7AEA] mb-6">
                 သဲသဲအတွက်မွေးနေ့လက်ဆောင်
             </p>
-            <input type="password" id="password-input" class="w-full input-field focus:outline-none focus:ring-2 focus:ring-[#F8BBD0]" placeholder="Enter password...">
+            <!-- Flex container for the input and show/hide button -->
+            <div class="flex items-center space-x-2">
+                <input type="password" id="password-input" class="w-full input-field focus:outline-none focus:ring-2 focus:ring-[#F8BBD0]" placeholder="Enter password...">
+                <!-- Added a button to toggle password visibility -->
+                <button id="toggle-password" class="cute-button text-sm px-4 py-2 flex-shrink-0">
+                    Show
+                </button>
+            </div>
+            
             <div id="message-box" class="message-box text-red-500 font-medium text-sm mt-2"></div>
             <div class="flex justify-between mt-6">
                 <button id="back-button" class="cute-button text-lg w-1/2 mr-2 bg-gray-400 hover:bg-gray-500">Back</button>
@@ -145,6 +152,8 @@
                 wave pay
             </p>
             <h2 class="text-4xl md:text-5xl font-extrabold text-[#6A1A51] mb-4">Enjoy!</h2>
+            <!-- Added a back button on the final page -->
+            <button id="back-button-final" class="cute-button text-lg mt-6">Back to Start</button>
         </div>
     </div>
 
@@ -155,9 +164,11 @@
         const page3 = document.getElementById('page3');
         const giftButton = document.getElementById('gift-button');
         const submitButton = document.getElementById('submit-button');
-        const backButton = document.getElementById('back-button'); // New back button reference
+        const backButton = document.getElementById('back-button');
         const passwordInput = document.getElementById('password-input');
         const messageBox = document.getElementById('message-box');
+        const togglePasswordButton = document.getElementById('toggle-password');
+        const backButtonFinal = document.getElementById('back-button-final');
 
         // The secret password.
         const SECRET_PASSWORD = "10.2.2024";
@@ -189,7 +200,7 @@
             }
         });
 
-        // New event listener for the back button
+        // Event listener for the back button on the password page
         backButton.addEventListener('click', () => {
             // Hide the current page and show the first page
             page2.classList.add('hidden');
@@ -198,6 +209,24 @@
             messageBox.textContent = "";
             // Clear the password input field
             passwordInput.value = "";
+        });
+
+        // Event listener for the new password toggle button
+        togglePasswordButton.addEventListener('click', () => {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePasswordButton.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                togglePasswordButton.textContent = "Show";
+            }
+        });
+
+        // Event listener for the new back button on the final page
+        backButtonFinal.addEventListener('click', () => {
+            // Hide the final page and show the first page
+            page3.classList.add('hidden');
+            page1.classList.remove('hidden');
         });
 
         // Allow pressing 'Enter' to submit the password
