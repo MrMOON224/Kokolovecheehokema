@@ -155,9 +155,9 @@
         }
 
         function handleTouch(event) {
-            // Prevent scrolling while touching the card
-            event.preventDefault();
-
+            // I've removed event.preventDefault() to allow scrolling on mobile.
+            // This was the cause of the scrolling issue.
+            
             // Get the first touch point
             const touch = event.touches[0];
             const clientX = touch.clientX;
