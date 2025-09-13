@@ -178,10 +178,12 @@
         card.addEventListener('mousemove', handleHover);
         card.addEventListener('mouseleave', resetCard);
         
-        card.addEventListener('touchstart', handleTouch);
-        card.addEventListener('touchmove', handleTouch);
-        card.addEventListener('touchend', resetCard);
-        card.addEventListener('touchcancel', resetCard);
+        // Removed the touch listeners as they were interfering with scrolling.
+        // The card's 3D effect will only work on desktop with mouse hover.
+        // card.addEventListener('touchstart', handleTouch);
+        // card.addEventListener('touchmove', handleTouch);
+        // card.addEventListener('touchend', resetCard);
+        // card.addEventListener('touchcancel', resetCard);
     </script>
 </body>
 </html>
