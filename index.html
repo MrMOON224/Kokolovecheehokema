@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Life Updates</title>
+    <title>A Final Message</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +15,9 @@
             background-color: #0A0A0A;
             background-image: radial-gradient(at 50% 10%, #1a1a1a, #0a0a0a);
             color: #e0e0e0;
-            overflow-y: auto;
-            min-height: 100vh;
         }
 
-        .card {
+        .message-card {
             background: rgba(30, 30, 30, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -28,8 +26,9 @@
             transition: transform 0.3s cubic-bezier(0.2, 0, 0.3, 1), box-shadow 0.3s ease;
         }
 
-        .card:hover,
-        .card:active {
+        /* Animation for both hover and touch (active state) */
+        .message-card:hover,
+        .message-card:active {
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -63,102 +62,129 @@
     </style>
 </head>
 <body class="p-6">
+    <!-- Background Music -->
+    <audio id="background-audio" loop>
+        <!-- Add the URL of your audio file here -->
+        <source src="https://example.com/your-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-    <div class="flex flex-col items-center max-w-4xl mx-auto text-center py-12">
+    <div class="flex flex-col items-center max-w-2xl mx-auto text-center">
 
-        <!-- Header Section -->
-        <header class="card p-8 sm:p-12 rounded-3xl shadow-2xl w-full">
-            <h1 class="title-font text-3xl sm:text-5xl font-bold text-gray-100 tracking-wide mb-2">My Life Vlogs & Posts</h1>
-            <p class="text-xl text-gray-300 font-medium">A glimpse into what I'm up to</p>
-        </header>
+        <!-- Final Message Content -->
+        <div id="message-card" class="message-card p-8 sm:p-12 rounded-3xl shadow-2xl">
+            <!-- Post Header with Profile Photo -->
+            <div class="flex items-center mb-6">
+                <!-- Profile Picture Placeholder -->
+                <img src="https://placehold.co/60x60/333333/FFFFFF?text=F" alt="Profile Photo" class="w-16 h-16 rounded-full border-2 border-gray-600 mr-4">
+                <span class="text-xl sm:text-2xl font-semibold text-gray-100 title-font">fudoo your bad bf :( </span>
+            </div>
 
-        <!-- Written Updates Section -->
-        <section class="w-full mt-12 space-y-8">
-            <!-- Update 1 -->
-            <div class="card p-8 sm:p-12 rounded-3xl shadow-2xl w-full text-left">
-                <h2 class="title-font text-2xl sm:text-3xl font-bold text-gray-100 mb-2">September 2023</h2>
-                <div id="post-1-preview" class="text-base sm:text-lg text-gray-300 font-medium leading-relaxed mb-4">
-                    ဒီနေ့က စနေနေ့ဖြစ်ပြီး ကျောင်းစာမေးပွဲ နောက်ဆုံးနေ့ ကျောင်းပိတ်တော့မှာမို့ သူငယ်ချင်းတွေနဲ့ခဏအပြင်ထွက်ခဲ့ပြီး စကားပြောတဲ့တိုင်း ကောင်မလေးအကြောင်းပဲ ပြောမိနေခဲ့တယ်။
-                </div>
-                <div id="post-1-full" class="hidden text-base sm:text-lg text-gray-300 font-medium leading-relaxed">
-                    <p class="mt-4">
-                        ဒိနေ့က စနေနေ စာမေးပွဲးဖြေရတဲ့နေ့ နောက်ဆုံး နောက်သုံးရက်နေရင်ကျောင်းပိတ်ပြီ စာမေးပွဲးဖြေရတော့ ဖြေပြီးလုပ်ချင်တာလုပ်ရတာနဲ့နေ့လည်က ခန အပြင်သွားခဲ့တယ်သူငယ်ချင်းတေနဲ့ သူတိုနဲ့စကားပြေားတိုင်းငါ့ကောင်မလေးငါ့ကောင်မလေးနဲ့ပြေားမိနေတုန်းပဲ တစ်နှစ်ကျော်လောက်ကြိးအဲလိုအကျင့်ကြီးကဖြစ်လာတာဆိုတော့လေ ငါ့ကောင်မလေးကို အရမ်းသဝန်တိုတယ်ဆိုပြီးပြေားမိနေတာ သူငယ်ချင်းက အဝတ်အစားအတိုအပြတ်အကြောင်းတေပြေားတော့ ပြီးတော့ မနက်ဖြန် သူတိုနဲ့နောက်ဆုံးပိတ်ခါနီးဆိုတော့ရှုပ်ရှင်သွားကြည့်ဖိုလဲချိန်းထားတယ် ဒိနေ့အချ်န်တော့သိပ်မရလိုက်ပါဘူး ဘာလိုလဲဆိုတော့ ၁၁ပီးတာကို ၁၂ထိုးခါနီးမှသွားလိုက်တာ သူက၁နာရီပြန်လာရမှာဆိုတော့လေားနေရတာ အဲတာနဲ့ပြန်လာတော့ အမုန်းဆုံးသင်ချာက်ုဖြေရတယ် မရပါဘူး ကိုကိုလဲ ခက်လွန်းလို့ သူငယ်ချင်းကိုမေးဖြေရတာ တစ်ကယ်ပြတ်သွားတာလားတော့မသိပေမဲ့အရှေ့မာရှိတဲ့မိန်းကလေးကိုလုံးဝမမေးခဲ့ဘူး သဲသဲမကြိုက်လောက်ဘူးဆိုပြီး အဲတာနဲ့၂နာရီလောက်ပီးတော့ ထိုင်ပြီးလေပေါးနေတာ အမေက ၃နာရိကျလာကြိုတယ် ပြီးတော့အိမ်ပြန်ရောက်တော့ညနေကျစက်ဘီးစိးတယ် သူငယ်ချင်းကအစကမလာတော့ကြောင်တောင်တောင်နဲ့သူလာမှရှောက်စော့နေတာ စက်ဘီးနဲ့ ၆နာရီ၁၅လောက်ကျအိမ်ပြန်လာခဲ့တယ် မိုးချုပ်ရင်မကောင်းလို
-                    </p>
-                    
-                    <h3 class="title-font text-xl sm:text-2xl font-semibold text-gray-100 mt-8 mb-4">A calming nature video</h3>
-                    <div class="grid grid-cols-1 gap-4 text-center">
-                        <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-xl">
-                            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/6Tz5pXvJd2E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-                <button id="toggle-post-1" class="button-style text-white font-bold py-2 px-6 rounded-full shadow-lg mt-4">
-                    Read More
-                </button>
+            <!-- The text now looks like a post caption -->
+            <h1 class="title-font text-2xl sm:text-3xl font-bold text-gray-100 mb-6 tracking-wide text-left">
+                A final message for you.
+            </h1>
+            <div class="text-base sm:text-lg text-gray-300 font-medium leading-relaxed text-justify">
+                <p class="mb-4">
+                    ဒိတစ်ခါ ဒိမိန်းမကိုငါပြတ်နိုင်တယ်ဆိုတဲ့စိတ်နဲ့မဟုတ်တော့ပဲ သူငါမရှိရင်ပိုပြီးအေးချမ်းပါတယ်ဆိုတဲ့စိတ်ကြောင့် အေးအေးဆေးဆေး သွားခွင့်ပေးလိုက်တာပါ အရင်ကလို ပြန်လာခေါ်ပြီး နင့်အပေါ်ကို စိတ်ဒုက္ခတေအပြုံလိုက်မပေးချင်တော့ဘူး နင့်မောင်လေးတစ်ယျောက်ရှိတာနဲ့နင်ကိုစိတ်ချတယ်ငါ နင့်ကြောင့်လဲငါ directions တစ်ခုပေါ်ရောက်ခဲ့တယ် ငါအဲတာကို တစ်နှစိကျော်ကျော်ထိကြိုးစားခဲ့တယ် နင့်ကို ကောင်းတဲ့ဘဝပေးချင်တဲ့စိတ်နဲ့ အဲတာတေက ငါ့အတွက်အားတေဖြစ်ခဲ့တယ် အဲအတွက်လဲကျေးဇူးတင်ပါတယ်
+                </p>
+                <p class="mb-4">
+                    ငါအရမ်း toxic ဖြစ််ခဲ့ပါတယ် ငါသိပါတယ် နင့်အပေါ် အရမ်း stress တေပေးခဲ့တယ် အရမ်း စကားကြမ်းတေပြေားခဲ့တယ် အဲ့တာတေအကုန်ငါနားလည်ပါတယ် နင့်အပေါ်ကို ဘယ်သူကိုမှမချစ်ခဲ့တဲ့အချစ်နဲလဲချစ်ခဲ့တယ် နင့်အတွက်ငါဘဝကြီးကို ငါပြောင်းလဲဖိုးကြိုးစားနေတယ် ငါကောင်းရင်နင်ကောင်းတာနဲ့အတူတူပဲမလို့လေ ငါ စိမာ 100ရှိရင် 90 က နင့်ကိုပဲပေးချင်ခဲ့တာ နင်အဆင်ပြေနင်ဖြစ်ချင်တာနင်လိုချင်တာကိုရနေရင် ငါစောက်ရမ်းပျော်တယ် နင့်ကိုလဲလမ်းမှားမရောက်စေချင်ဘူ နင်မရောက်မာလဲငါသိတယ် ငါကိုယ်ငါလဲမုန်းတယ် အရမ်းစိတ်ပူလွန် သဝန်တိုလွန် နားမလည်ပေးနိုင် တစ်ခုခုဆို အရမ်းအထိခိုက်လွယ်လို့
+                </p>
+
+                <p>
+                    ကြားထဲးက၁နှစ်ကျော်အတွက်ကျေးဇူးတင်ပါတယ် တာဝန်မယူ မကောင်းတဲ့ ယျောက်ကျားတစ်ယျောက်ဖြစ်ခဲ့တဲ့အတွက်တောင်းပန်ပါတယ် ကောင်းနေတာပဲမြင်ချင်ခဲ့တာမလို အတူတူမရှိနေလဲကောင်းအောင်နေနော် ချစ်တယ်အများကြီး
+                </p>
             </div>
             
-            <!-- Update 2 - Hidden as requested by the user -->
-            <div class="card p-8 sm:p-12 rounded-3xl shadow-2xl w-full text-left hidden">
-                <h2 class="title-font text-2xl sm:text-3xl font-bold text-gray-100 mb-2">July 2023</h2>
-                <div id="post-2-preview" class="text-base sm:text-lg text-gray-300 font-medium leading-relaxed mb-4">
-                    Spent the last couple of months contributing to an open-source data visualization library. It was a great opportunity to collaborate with a global team of developers and learn the intricacies of open-source workflows. I focused on improving the performance of a key rendering component.
-                </div>
-                <div id="post-2-full" class="hidden text-base sm:text-lg text-gray-300 font-medium leading-relaxed">
-                    <p class="mt-4">
-                        My work involved optimizing the rendering loop to reduce redraws and improve frame rates. I used browser performance tools to identify bottlenecks and rewrote a core function to be more efficient. The experience taught me a lot about collaborative coding, version control with Git, and the importance of clear documentation.
-                    </p>
-                    <p class="mt-4">
-                        It's incredibly satisfying to see my code live and being used by people all over the world. I highly recommend contributing to open-source projects for anyone looking to grow as a developer and be part of a larger community.
-                    </p>
-                    
-                    <h3 class="title-font text-xl sm:text-2xl font-semibold text-gray-100 mt-8 mb-4">Summer Photos</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
-                        <div class="card p-4 rounded-2xl">
-                            <img src="https://placehold.co/600x400/333333/FFFFFF?text=Placeholder+Image+1" alt="Placeholder Image 1" class="w-full h-auto rounded-xl shadow-xl">
-                        </div>
-                        <div class="card p-4 rounded-2xl">
-                            <img src="https://placehold.co/600x400/333333/FFFFFF?text=Placeholder+Image+2" alt="Placeholder Image 2" class="w-full h-auto rounded-xl shadow-xl">
-                        </div>
-                    </div>
-                </div>
-                <button id="toggle-post-2" class="button-style text-white font-bold py-2 px-6 rounded-full shadow-lg mt-4">
-                    Read More
-                </button>
-            </div>
-        </section>
+        </div>
 
-        <!-- Back to Portfolio Button -->
-        <div class="mt-12 w-full flex justify-center">
-            <a href="personal-portfolio.html" class="w-full sm:w-auto">
+        <!-- Button Section -->
+        <div class="mt-12 w-full flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <!-- Contact Me Button -->
+            <a href="contact.html" class="w-full sm:w-auto">
+                <button class="w-full button-style text-white font-bold py-4 px-8 rounded-full shadow-lg">
+                    Contact Me
+                </button>
+            </a>
+
+            <!-- My Life Update Button -->
+            <a href="updates.html" class="w-full sm:w-auto">
                 <button class="w-full button-style-alt text-white font-bold py-4 px-8 rounded-full shadow-lg">
-                    Back to Portfolio
+                    My Life Update
                 </button>
             </a>
         </div>
         
     </div>
     <script>
-        // Function to toggle the visibility of the full post content
-        function setupPostToggle(buttonId, contentId) {
-            const button = document.getElementById(buttonId);
-            const content = document.getElementById(contentId);
+        // Get the audio element and play it
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('background-audio');
+            // Set the volume to a low level (0.0 to 1.0)
+            audio.volume = 0.1;
 
-            if (!button || !content) return;
-
-            button.addEventListener('click', () => {
-                if (content.classList.contains('hidden')) {
-                    content.classList.remove('hidden');
-                    button.textContent = 'Collapse';
-                } else {
-                    content.classList.add('hidden');
-                    button.textContent = 'Read More';
-                }
+            // Autoplay might not work in some browsers without user interaction
+            audio.play().catch(error => {
+                // Autoplay was prevented
+                console.log('Autoplay was prevented. User must interact to play audio.', error);
             });
+        });
+        
+        const card = document.getElementById('message-card');
+        const cardRect = card.getBoundingClientRect();
+        const sensitivity = 5; // Adjust this value to change the intensity of the effect
+
+        function handleHover(event) {
+            const clientX = event.clientX;
+            const clientY = event.clientY;
+            
+            // Calculate the position relative to the center of the card
+            const x = clientX - (cardRect.left + cardRect.width / 2);
+            const y = clientY - (cardRect.top + cardRect.height / 2);
+
+            // Calculate rotation based on relative position
+            const rotateX = -y / cardRect.height * sensitivity;
+            const rotateY = x / cardRect.width * sensitivity;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            card.style.boxShadow = `0 10px 30px rgba(0, 0, 0, 0.3)`;
         }
 
-        // Setup for each post
-        setupPostToggle('toggle-post-1', 'post-1-full');
-        setupPostToggle('toggle-post-2', 'post-2-full');
+        function handleTouch(event) {
+            // Prevent scrolling while touching the card
+            event.preventDefault();
+
+            // Get the first touch point
+            const touch = event.touches[0];
+            const clientX = touch.clientX;
+            const clientY = touch.clientY;
+
+            // Calculate the position relative to the center of the card
+            const x = clientX - (cardRect.left + cardRect.width / 2);
+            const y = clientY - (cardRect.top + cardRect.height / 2);
+
+            // Calculate rotation based on relative position
+            const rotateX = -y / cardRect.height * sensitivity;
+            const rotateY = x / cardRect.width * sensitivity;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            card.style.boxShadow = `0 10px 30px rgba(0, 0, 0, 0.3)`;
+        }
+
+        function resetCard() {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            card.style.boxShadow = `0 4px 15px rgba(0, 0, 0, 0.2)`;
+        }
+        
+        // Add event listeners for both mouse and touch
+        card.addEventListener('mousemove', handleHover);
+        card.addEventListener('mouseleave', resetCard);
+        
+        card.addEventListener('touchstart', handleTouch);
+        card.addEventListener('touchmove', handleTouch);
+        card.addEventListener('touchend', resetCard);
+        card.addEventListener('touchcancel', resetCard);
     </script>
 </body>
 </html>
